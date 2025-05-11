@@ -44,7 +44,119 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
 
 
 <body>
@@ -278,7 +390,7 @@
             
                 <span class="meta-info-item post-update-date">
                     <i class="icon fa-solid fa-arrows-rotate"></i>&nbsp;
-                    <span class="datetime" data-updated="Sun May 11 2025 11:15:33 GMT+0000">2025-05-11</span>
+                    <span class="datetime" data-updated="Sun May 11 2025 11:26:13 GMT+0000">2025-05-11</span>
                 </span>
             
         
@@ -317,7 +429,7 @@
         
         
             <span class="meta-info-item post-wordcount">
-                <i class="icon fas fa-file-word"></i>&nbsp;<span>346 Words</span>
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>330 Words</span>
             </span>
         
         
@@ -346,13 +458,13 @@ port that does not conflict with NAS.</p>
 <h2 id="environment-settings-for-ubuntu-container">Environment Settings
 for Ubuntu Container</h2>
 <h3 id="dockerfile">Dockerfile</h3>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> ubuntu:latest</span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> apt-get update &amp;&amp; apt-get install -y openssh-server</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">mkdir</span> /var/run/sshd</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">echo</span> <span class="string">&#x27;root:your_password&#x27;</span> | chpasswd</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> sed -i <span class="string">&#x27;s/PermitRootLogin prohibit-password/PermitRootLogin yes/&#x27;</span> /etc/ssh/sshd_config</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> sed <span class="string">&#x27;s@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g&#x27;</span> -i /etc/pam.d/sshd</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Other installations</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> apt-get upgrade -y</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> apt-get install -y <span class="built_in">sudo</span> nano vim curl git</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">22</span></span><br><span class="line"><span class="keyword">CMD</span><span class="language-bash"> [<span class="string">&quot;/usr/sbin/sshd&quot;</span>, <span class="string">&quot;-D&quot;</span>]</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> ubuntu:latest</span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> apt-get update &amp;&amp; apt-get install -y openssh-server</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">mkdir</span> /var/run/sshd</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">echo</span> <span class="string">'root:your_password'</span> | chpasswd</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> sed -i <span class="string">'s/PermitRootLogin prohibit-password/PermitRootLogin yes/'</span> /etc/ssh/sshd_config</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> sed <span class="string">'s@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g'</span> -i /etc/pam.d/sshd</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Other installations</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> apt-get upgrade -y</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> apt-get install -y <span class="built_in">sudo</span> nano vim curl git</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">22</span></span><br><span class="line"><span class="keyword">CMD</span><span class="language-bash"> [<span class="string">"/usr/sbin/sshd"</span>, <span class="string">"-D"</span>]</span></span><br></pre></td></tr></table></figure>
 <h3 id="docker-build-and-push-to-docker-hub">Docker Build and Push to
 Docker Hub</h3>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker build -t ubuntu_ssh .</span><br><span class="line">docker tag ubuntu_ssh wulukewu/ubuntu_ssh:latest</span><br><span class="line">docker push wulukewu/ubuntu_ssh:latest</span><br></pre></td></tr></table></figure>
 <h3 id="install-openssh-server">Install OpenSSH-Server</h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">apt-get update </span><br><span class="line">apt-get install -y openssh-server</span><br><span class="line">mkdir /var/run/sshd</span><br><span class="line">echo &#x27;root:your_password&#x27; | chpasswd</span><br><span class="line">sed -i &#x27;s/PermitRootLogin prohibit-password/PermitRootLogin yes/&#x27; /etc/ssh/sshd_config</span><br><span class="line">sed &#x27;s@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g&#x27; -i /etc/pam.d/sshd</span><br><span class="line">/usr/sbin/sshd -D</span><br></pre></td></tr></table></figure>
-<hr />
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">apt-get update </span><br><span class="line">apt-get install -y openssh-server</span><br><span class="line">mkdir /var/run/sshd</span><br><span class="line">echo 'root:your_password' | chpasswd</span><br><span class="line">sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config</span><br><span class="line">sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd</span><br><span class="line">/usr/sbin/sshd -D</span><br></pre></td></tr></table></figure>
+<hr>
 <h2 id="pull-and-run-the-ubuntu_ssh-image">Pull and Run the ubuntu_ssh
 Image</h2>
 <h3 id="pull-ubuntu_ssh-from-docker-hub">Pull ubuntu_ssh from Docker
@@ -362,17 +474,17 @@ Hub</h3>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run -d --net=host --name ubuntu_ssh wulukewu/ubuntu_ssh:latest</span><br></pre></td></tr></table></figure>
 <h3 id="access-the-ubuntu-container">Access the Ubuntu Container</h3>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker exec -i -t ubuntu_ssh /bin/bash</span><br></pre></td></tr></table></figure>
-<hr />
+<hr>
 <h2 id="hostname-configuration">Hostname Configuration</h2>
 <h3 id="change-hostname">Change Hostname</h3>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/hostname</span><br><span class="line">sudo nano /etc/hosts</span><br><span class="line">sudo reboot</span><br></pre></td></tr></table></figure>
 <h3 id="display-the-current-hostname">Display the Current Hostname</h3>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hostname</span><br></pre></td></tr></table></figure>
-<hr />
+<hr>
 <h2 id="ssh-configuration">SSH Configuration</h2>
 <h3 id="change-ssh-port">Change SSH Port</h3>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/ssh/sshd_config</span><br><span class="line">service ssh restart</span><br></pre></td></tr></table></figure>
-<hr />
+<hr>
 <h2 id="user-management">User Management</h2>
 <h3 id="add-a-new-sudo-user">Add a New Sudo User</h3>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adduser user_name</span><br></pre></td></tr></table></figure>
@@ -383,30 +495,24 @@ Group</h3>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo passwd user_name</span><br></pre></td></tr></table></figure>
 <h3 id="test-sudo-access">Test Sudo Access</h3>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su - user_name</span><br></pre></td></tr></table></figure>
-<hr />
+<hr>
 <h2 id="references">References</h2>
 <ul>
-<li><a class="link" 
- target="_blank" rel="noopener" href="https://www.cherryservers.com/blog/ssh-into-docker-container" >How
+<li><a class="link" target="_blank" rel="noopener" href="https://www.cherryservers.com/blog/ssh-into-docker-container">How
 to SSH into a Docker Container | Step-by-Step Tutorial<i class="fas fa-external-link-alt"></i></a></li>
-<li><a class="link" 
- target="_blank" rel="noopener" href="https://peihsinsu.gitbooks.io/docker-note-book/content/docker-save-image.html" >Save
+<li><a class="link" target="_blank" rel="noopener" href="https://peihsinsu.gitbooks.io/docker-note-book/content/docker-save-image.html">Save
 Docker Image as a File<i class="fas fa-external-link-alt"></i></a></li>
-<li><a class="link" 
- target="_blank" rel="noopener" href="https://www.cyberciti.biz/faq/ubuntu-change-hostname-command/" >Ubuntu
+<li><a class="link" target="_blank" rel="noopener" href="https://www.cyberciti.biz/faq/ubuntu-change-hostname-command/">Ubuntu
 Linux Change Hostname<i class="fas fa-external-link-alt"></i></a></li>
-<li><a class="link"   target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/articles/10193457" >Day 21:
+<li><a class="link" target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/articles/10193457">Day 21:
 Introduction to Docker Networking (Part 2)<i class="fas fa-external-link-alt"></i></a></li>
-<li><a class="link"   target="_blank" rel="noopener" href="https://yingclin.github.io/2018/docker-basic.html" >Docker
+<li><a class="link" target="_blank" rel="noopener" href="https://yingclin.github.io/2018/docker-basic.html">Docker
 Basic Commands Cheat Sheet<i class="fas fa-external-link-alt"></i></a></li>
-<li><a class="link" 
- target="_blank" rel="noopener" href="https://www.digitalocean.com/community/tutorials/how-to-create-a-new-sudo-enabled-user-on-ubuntu" >How
+<li><a class="link" target="_blank" rel="noopener" href="https://www.digitalocean.com/community/tutorials/how-to-create-a-new-sudo-enabled-user-on-ubuntu">How
 to Create a New Sudo-Enabled User on Ubuntu<i class="fas fa-external-link-alt"></i></a></li>
-<li><a class="link" 
- target="_blank" rel="noopener" href="https://askubuntu.com/questions/423942/change-password-on-root-user-and-user-account" >Change
+<li><a class="link" target="_blank" rel="noopener" href="https://askubuntu.com/questions/423942/change-password-on-root-user-and-user-account">Change
 Password for Root and User Accounts<i class="fas fa-external-link-alt"></i></a></li>
-<li><a class="link" 
- target="_blank" rel="noopener" href="https://chatgpt.com/share/673dd661-36a0-8007-8442-b5d1cb04bebd" >Ask
+<li><a class="link" target="_blank" rel="noopener" href="https://chatgpt.com/share/673dd661-36a0-8007-8442-b5d1cb04bebd">Ask
 ChatGPT<i class="fas fa-external-link-alt"></i></a></li>
 </ul>
 
